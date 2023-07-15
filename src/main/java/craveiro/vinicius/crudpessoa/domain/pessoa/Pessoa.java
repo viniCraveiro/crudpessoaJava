@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,15 +19,17 @@ public class Pessoa extends Entidade {
     @Column(length = 11, nullable = false)
     private String cpf;
 
-    private ZonedDateTime nascimento;
+    @Column(nullable = false)
+    private Date nascimento;
 
+    @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private List<Contato> contatos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String cpf, ZonedDateTime nascimento) {
+    public Pessoa(String nome, String cpf, Date nascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.nascimento = nascimento;
@@ -48,11 +51,11 @@ public class Pessoa extends Entidade {
         this.cpf = cpf;
     }
 
-    public ZonedDateTime getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(ZonedDateTime nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
 

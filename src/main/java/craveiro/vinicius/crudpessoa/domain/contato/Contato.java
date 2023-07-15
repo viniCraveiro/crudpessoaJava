@@ -9,13 +9,16 @@ import jakarta.persistence.*;
 public class Contato extends Entidade {
     @Column(length = 100, nullable = false)
     private String nome;
-    @Column(length = 13)
+    @Column(length = 13, nullable = false)
     private String telefone;
+
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "pessoa_fk")
     private Pessoa pessoa;
+
     public Contato() {
     }
 

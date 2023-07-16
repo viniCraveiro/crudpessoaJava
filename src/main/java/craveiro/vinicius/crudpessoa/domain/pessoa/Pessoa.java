@@ -18,9 +18,14 @@ public class Pessoa extends Entidade {
     @Column(length = 11, nullable = false)
     private String cpf;
 
+    @Column(nullable = false)
     private ZonedDateTime nascimento;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
+    @Column(nullable = false)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PESSOA_CONTATO", joinColumns = @JoinColumn(name = "PESSOA_FK"),
+            inverseJoinColumns = @JoinColumn(name = "CONTATO_FK"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"PESSOA_FK", "CONTATO_FK"}))
     private List<Contato> contatos = new ArrayList<>();
 
     public Pessoa() {

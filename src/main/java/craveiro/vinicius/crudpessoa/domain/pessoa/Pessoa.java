@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,16 +19,19 @@ public class Pessoa extends Entidade {
     private String cpf;
 
     @Column(nullable = false)
-    private Date nascimento;
+    private ZonedDateTime nascimento;
 
     @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PESSOA_CONTATO", joinColumns = @JoinColumn(name = "PESSOA_FK"),
+            inverseJoinColumns = @JoinColumn(name = "CONTATO_FK"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"PESSOA_FK", "CONTATO_FK"}))
     private List<Contato> contatos = new ArrayList<>();
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String cpf, Date nascimento) {
+    public Pessoa(String nome, String cpf, ZonedDateTime nascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.nascimento = nascimento;
@@ -51,11 +53,11 @@ public class Pessoa extends Entidade {
         this.cpf = cpf;
     }
 
-    public Date getNascimento() {
+    public ZonedDateTime getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(ZonedDateTime nascimento) {
         this.nascimento = nascimento;
     }
 

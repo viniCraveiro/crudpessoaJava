@@ -1,12 +1,15 @@
 package craveiro.vinicius.crudpessoa.domain.contato;
 
 import craveiro.vinicius.crudpessoa.domain.entidade.Entidade;
-import craveiro.vinicius.crudpessoa.domain.pessoa.Pessoa;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "CONTATO")
-public class Contato extends Entidade {
+public class Contato extends Entidade implements Serializable {
     @Column(length = 100, nullable = false)
     private String nome;
     @Column(length = 13, nullable = false)
@@ -14,10 +17,6 @@ public class Contato extends Entidade {
 
     @Column(nullable = false)
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "pessoa_fk")
-    private Pessoa pessoa;
 
     public Contato() {
     }

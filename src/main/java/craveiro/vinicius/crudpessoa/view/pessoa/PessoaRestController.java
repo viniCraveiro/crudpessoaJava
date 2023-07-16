@@ -43,7 +43,7 @@ public class PessoaRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
-        return new ResponseEntity<>(pessoaService.delete(id), HttpStatus.OK);
+        return new ResponseEntity<>(pessoaService.delete(id), HttpStatus.NO_CONTENT);
     }
 
 }

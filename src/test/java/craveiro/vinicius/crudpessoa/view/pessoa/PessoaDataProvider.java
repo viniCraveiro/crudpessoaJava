@@ -7,7 +7,7 @@ public  class PessoaDataProvider {
                 {
                     "nome": "vinicius",
                     "cpf": "08626972989",
-                    "nascimento": "2023-07-15",
+                    "nascimento": "2023-07-16T00:00:00Z",
                     "contatos": [
                         {
                             "nome": "testevaldo",
@@ -29,7 +29,7 @@ public  class PessoaDataProvider {
                 {
                     "nome": "vinicius",
                     "cpf": "08626972989",
-                    "nascimento": "2023-07-15",
+                    "nascimento": "2023-07-16T00:00:00Z",
                     "contatos": [
                         {
                             "nome": "testevaldo",

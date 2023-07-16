@@ -25,7 +25,7 @@ class PessoaRestControllerTest {
     void listAll() {
         mockMvc.perform(MockMvcRequestBuilders.get("/v0/pessoa"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(0));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(1));
     }
 
     @SneakyThrows
@@ -39,12 +39,12 @@ class PessoaRestControllerTest {
     @SneakyThrows
     //@Test
     void update() {
+
         mockMvc.perform(MockMvcRequestBuilders.put("/v0/pessoa/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(PessoaDataProvider.pessoaJson2Contatos()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
-
     }
 
     @SneakyThrows

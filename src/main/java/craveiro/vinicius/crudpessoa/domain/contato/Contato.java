@@ -1,9 +1,8 @@
 package craveiro.vinicius.crudpessoa.domain.contato;
 
 import craveiro.vinicius.crudpessoa.domain.entidade.Entidade;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import craveiro.vinicius.crudpessoa.domain.pessoa.Pessoa;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
@@ -59,4 +58,5 @@ public class Contato extends Entidade implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

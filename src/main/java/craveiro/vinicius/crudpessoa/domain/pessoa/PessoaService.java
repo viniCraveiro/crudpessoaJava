@@ -25,10 +25,8 @@ public class PessoaService {
     private final EmailValidador emailValidador;
     private final DataNascimentoValidador nascimentoValidador;
 
-    List<Validacao> validacaos;
-
-    public PessoaService(PessoaRepository pessoaRepository, ContatoRepository contatoRepository, CpfValidador cpfValidador, EmailValidador emailValidador,
-                         DataNascimentoValidador nascimentoValidador) {
+    public PessoaService(PessoaRepository pessoaRepository, ContatoRepository contatoRepository, CpfValidador cpfValidador,
+                         EmailValidador emailValidador, DataNascimentoValidador nascimentoValidador) {
         this.pessoaRepository = pessoaRepository;
         this.contatoRepository = contatoRepository;
         this.cpfValidador = cpfValidador;
@@ -45,7 +43,7 @@ public class PessoaService {
     }
 
     public Pessoa findOneById(Long id) {
-        return this.pessoaRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return this.pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Identificador não encontrado."));
     }
 
     public Pessoa update(Long id, Pessoa editado) {
@@ -54,8 +52,23 @@ public class PessoaService {
         pessoa.setNome(editado.getNome());
         pessoa.setCpf(editado.getCpf());
         pessoa.setNascimento(editado.getNascimento());
-        pessoa.getContatos().clear();
-        pessoa.getContatos().addAll(editado.getContatos());
+
+        List<Contato> existentes = pessoa.getContatos();
+        List<Contato> atualizados = editado.getContatos();
+
+        existentes.removeIf(contato -> !atualizados.contains(contato));
+
+        for (Contato atualizado : atualizados) {
+            if (existentes.contains(atualizado)) {
+                Contato contato = existentes.get(existentes.indexOf(atualizado));
+                contato.setNome(atualizado.getNome());
+                contato.setEmail(atualizado.getEmail());
+                contato.setTelefone(atualizado.getTelefone());
+                atualizados.add(contato);
+            } else {
+                pessoa.setContatos(atualizados);
+            }
+        }
         return this.pessoaRepository.save(pessoa);
     }
 

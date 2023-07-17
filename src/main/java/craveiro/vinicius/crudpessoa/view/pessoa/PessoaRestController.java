@@ -24,8 +24,7 @@ public class PessoaRestController {
 
     @Operation(summary = "Obtem lista paginada de pessoa", tags = "PESSOA")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista de pessoa encontrada.", content = {@Content(mediaType =
-                    "application/json", schema = @Schema(implementation = Pessoa.class))}),
+            @ApiResponse(responseCode = "200", description = "Lista de pessoa encontrada.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Solicitação inválida"),
             @ApiResponse(responseCode = "404", description = "Não encontrado.")
     })
@@ -35,24 +34,48 @@ public class PessoaRestController {
         return new ResponseEntity<>(pessoas, HttpStatus.OK);
     }
 
+    @Operation(summary = "Obtem pessoa por ID", tags = "PESSOA")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoa encontrada.", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Pessoa.class))}),
+            @ApiResponse(responseCode = "404", description = "Não encontrado.")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Pessoa> findOneById(@PathVariable Long id) {
         Pessoa pessoa = pessoaService.findOneById(id);
         return new ResponseEntity<>(pessoa, HttpStatus.OK);
     }
 
+    @Operation(summary = "Edita a pessoa por ID", tags = "PESSOA")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoa editada.", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Pessoa.class))}),
+            @ApiResponse(responseCode = "404", description = "Não encontrado.")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Pessoa> update(@PathVariable Long id, @RequestBody Pessoa pessoaEditada) {
         Pessoa pessoa = pessoaService.update(id, pessoaEditada);
         return new ResponseEntity<>(pessoa, HttpStatus.OK);
     }
 
+    @Operation(summary = "Inseri uma pessoa", tags = "PESSOA")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pessoa inserida com sucesso.", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Pessoa.class))}),
+            @ApiResponse(responseCode = "404", description = "Pessoa não inserida.")
+    })
     @PostMapping()
     public ResponseEntity<Pessoa> create(@RequestBody Pessoa novaPessoa) {
         Pessoa pessoa = pessoaService.create(novaPessoa);
         return new ResponseEntity<>(pessoa, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Deleta uma pessoa por ID", tags = "PESSOA")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Pessoa deletada."),
+            @ApiResponse(responseCode = "400", description = "Solicitação inválida"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado.")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         return new ResponseEntity<>(pessoaService.delete(id), HttpStatus.NO_CONTENT);

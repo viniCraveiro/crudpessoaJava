@@ -1,4 +1,4 @@
-package craveiro.vinicius.crudpessoa.domain.common;
+package craveiro.vinicius.crudpessoa.domain.common.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(servers = {
-        @Server(url = "https://spring-java-crudpessoa-adfbea863a8b.herokuapp.com/", description = "Api server"),
         @Server(url = "http://localhost:8080/", description = "Localhost Server"),
 })
 @Configuration

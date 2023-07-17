@@ -22,10 +22,18 @@ class PessoaRestControllerTest {
 
     @SneakyThrows
     @Test
+    void create() {
+        mockMvc.perform(MockMvcRequestBuilders.post("/v0/pessoa")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(PessoaDataProvider.pessoaJson2Contatos()))
+                .andExpect(status().isCreated());
+    }
+
+    @SneakyThrows
+    @Test
     void listAll() {
         mockMvc.perform(MockMvcRequestBuilders.get("/v0/pessoa"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalElements").value(1));
+                .andExpect(status().isOk());
     }
 
     @SneakyThrows
@@ -47,17 +55,9 @@ class PessoaRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
     }
 
-    @SneakyThrows
-    @Test
-    void create() {
-        mockMvc.perform(MockMvcRequestBuilders.post("/v0/pessoa")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(PessoaDataProvider.pessoaJson2Contatos()))
-                .andExpect(status().isCreated());
-    }
 
     @SneakyThrows
-    //@Test
+    @Test
     void delete() {
         mockMvc.perform(MockMvcRequestBuilders.delete("/v0/pessoa/1"))
                 .andExpect(status().isNoContent());

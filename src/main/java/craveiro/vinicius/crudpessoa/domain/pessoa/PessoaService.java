@@ -1,10 +1,8 @@
 package craveiro.vinicius.crudpessoa.domain.pessoa;
 
-import craveiro.vinicius.crudpessoa.domain.common.Validacao;
 import craveiro.vinicius.crudpessoa.domain.contato.Contato;
 import craveiro.vinicius.crudpessoa.domain.contato.ContatoRepository;
 import craveiro.vinicius.crudpessoa.domain.contato.validator.EmailValidador;
-import craveiro.vinicius.crudpessoa.domain.entidade.Entidade;
 import craveiro.vinicius.crudpessoa.domain.pessoa.validator.CpfValidador;
 import craveiro.vinicius.crudpessoa.domain.pessoa.validator.DataNascimentoValidador;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,10 +30,6 @@ public class PessoaService {
         this.cpfValidador = cpfValidador;
         this.emailValidador = emailValidador;
         this.nascimentoValidador = nascimentoValidador;
-    }
-
-    public List<Pessoa> listAll() {
-        return this.pessoaRepository.findAll();
     }
 
     public Page<Pessoa> listAll(Pageable pageable) {

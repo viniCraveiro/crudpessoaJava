@@ -2,6 +2,11 @@ package craveiro.vinicius.crudpessoa.view.pessoa;
 
 import craveiro.vinicius.crudpessoa.domain.pessoa.Pessoa;
 import craveiro.vinicius.crudpessoa.domain.pessoa.PessoaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,6 +22,13 @@ public class PessoaRestController {
         this.pessoaService = pessoaService;
     }
 
+    @Operation(summary = "Obtem lista paginada de pessoa", tags = "PESSOA")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pessoa encontrada.", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Pessoa.class))}),
+            @ApiResponse(responseCode = "400", description = "Solicitação inválida"),
+            @ApiResponse(responseCode = "404", description = "Não encontrado.")
+    })
     @GetMapping
     public ResponseEntity<Page<Pessoa>> listAll(Pageable pageable) {
         Page<Pessoa> pessoas = pessoaService.listAll(pageable);

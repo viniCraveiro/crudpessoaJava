@@ -105,7 +105,7 @@ public class APIExceptionTranslator {
                 ex.getClass().getSimpleName(),
                 ex.getLocalizedMessage(),
                 Arrays.stream(ex.getStackTrace())
-                        .filter(s -> s.getClassName().startsWith("br.com.produtec"))
+                        .filter(s -> s.getClassName().startsWith("craveiro.vinicius.crudpessoa"))
                         .limit(3L)
                         .map(s -> s.getClassName() + ": " + s.getLineNumber())
                         .collect(Collectors.toList()));
